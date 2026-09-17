@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: dbcrawler-postgres
+    environment:
+      POSTGRES_DB: dbcrawler
+      POSTGRES_USER: app_owner
+      POSTGRES_PASSWORD: owner_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data/seed:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_owner -d dbcrawler"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

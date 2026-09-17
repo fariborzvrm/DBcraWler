@@ -1,0 +1,36 @@
+# Few-shot examples for the Northwind-style domain.
+# question / sql pairs used verbatim in the prompt.
+# Each SQL must be SELECT-only and reference tables that exist in the seed data.
+- question: How many customers are registered in Germany?
+  sql: |
+    SELECT COUNT(*) AS german_customers
+    FROM customers
+    WHERE country = 'Germany';
+
+- question: What are the 5 most recently placed orders?
+  sql: |
+    SELECT order_id, order_date, ship_country, order_status
+    FROM orders
+    ORDER BY order_date DESC
+    LIMIT 5;
+
+- question: Total revenue per customer segment.
+  sql: |
+    SELECT c.segment, SUM(od.unit_price * od.quantity * (1 - od.discount)) AS revenue
+    FROM order_details od
+    JOIN orders o ON o.order_id = od.order_id AND o.order_date = od.order_date
+    JOIN customers c ON c.customer_id = o.customer_id
+    GROUP BY c.segment
+    ORDER BY revenue DESC;
+
+- question: Which products have never been ordered?
+  sql: |
+    SELECT p.product_id, p.product_name
+    FROM products p
+    WHERE p.product_id NOT IN (SELECT product_id FROM order_details);
+
+- question: How many orders shipped to the USA were completed?
+  sql: |
+    SELECT COUNT(*) AS completed_usa_orders
+    FROM orders
+    WHERE ship_country = 'USA' AND order_status = 'completed';
