@@ -2,54 +2,62 @@
 
 ## Objective
 
-Phase 4 — Query Interface (FastAPI + Streamlit), per plan.md Day 9–11.
-API core complete; remaining: optional polish, then Phase 5.
+Phase 5 — Evaluation suite (golden dataset + live runner), per plan.md
+Day 11-13. Infrastructure complete and offline-verified; live full run
+blocked on OpenRouter free-tier daily quota.
 
 ## Context
 
-Phases 1-3 complete and verified. Phase 4 adds a shared service layer
-(api/service.py) used by the CLI and the API, an in-memory history store
-with user feedback, a FastAPI app and a Streamlit frontend.
+Phases 1-4 complete and committed. Phase 5 adds the golden dataset
+(42 verified SQL questions incl. lookup/join/aggregation/date_range/top_n,
+5 ambiguous, 6 unanswerable, 8 dangerous statements), a snapshot of
+expected results, evaluation metrics and a live runner.
 
 ## Current Files
 
-Phases 1-3 files plus:
-- src/dbcrawler/api/{app,service,history}.py
-- src/dbcrawler/ui/streamlit_app.py (optional-dependency group `ui`)
-- tests/api/{test_api,test_history}.py
+Phases 1-4 files plus:
+- data/evaluation/golden_queries.json, golden_results.json (snapshot)
+- src/dbcrawler/evaluation/{dataset,metrics,runner,snapshot,__main__,
+  write_golden_snapshot}.py
+- tests/evaluation/test_dataset.py
 
 ## Completed
 
-- API: POST /v1/query (statuses: ok, blocked, clarification_needed,
-  execution_error, generation_failed), GET /v1/schema,
-  GET /v1/history, POST /v1/feedback/{id}.
-- In-memory bounded history (200 entries) records every round-trip.
-- LLM generation failures degrade to `generation_failed`, never 500.
-- Streamlit UI: question input, SQL, result table, confidence breakdown,
-  sanity/intent/multiquery panels, history + correct/incorrect feedback.
-- Verified live: guardrails -> execution -> confidence (Andrew Fuller
-  report question: 4 rows, final confidence 0.996, multiquery agree).
+- 52 natural-language evaluation questions (+ 8 guardrail cases);
+  all golden SQL verified to run against seeded DB, zero empty results.
+- Execution match compares result VALUES (multiset, alias-insensitive).
+- Dangerous-statement guardrail cases verified offline (8/8 blocked).
+- Live runner: `uv run python -m dbcrawler.evaluation` (exact match,
+  execution accuracy, ambiguous/unanswerable detection, guardrail rate,
+  failure details in summary).
 
 ## Current Problem
 
-None blocking. openrouter/free sometimes returns refusal prose
-("User Safety: safe") even after the client's JSON retry; API handles
-it as generation_failed (known issue, also in PROJECT_STATE).
+OpenRouter free tier exhausted daily quota during the first live run
+(429 free-models-per-day); every LLM-backed case degraded to
+generation_failed safely. Re-run when quota resets (or with credits).
 
 ## Next Step
 
-Phase 5 — Evaluation suite (golden dataset, regression run). Optionally
-persist history and wire feedback into fewer-shot examples first.
+Re-run `uv run python -m dbcrawler.evaluation` and record real numbers
+in PROJECT_STATE.md (execution accuracy, hallucination detection rate,
+guardrail blocks across 92 tests). Then Phase 6 containerization/docs.
 
 ## Constraints
 
 - Never execute generated SQL before guardrails.
-- app_readonly grants must never be weakened.
-- Guardrail rules configurable but defaults fail closed.
+- Golden results snapshot must be regenerated via
+  `uv run python -m dbcrawler.evaluation.write_golden_snapshot`
+  whenever seed data or dataset changes.
 
 ## Verification
 
-pytest: 57 passed
+pytest: 67 passed
 ruff: clean
-Live: uv run uvicorn dbcrawler.api.app:create_app --factory --port 8000
-UI:   uv run --extra ui streamlit run src/dbcrawler/ui/streamlit_app.py
+
+Last commands:
+
+uv run pytest -q
+uv run ruff check .
+uv run python -m dbcrawler.evaluation.write_golden_snapshot
+uv run python -m dbcrawler.evaluation

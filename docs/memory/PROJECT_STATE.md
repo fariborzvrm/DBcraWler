@@ -14,15 +14,17 @@ Production-oriented Text-to-SQL system with:
 
 ## Current Phase
 
-Phase 4 — Query Interface (API + Streamlit core complete, verified live)
+Phase 5 — Evaluation Suite (infrastructure complete, offline-verified;
+live full run pending daily LLM quota reset)
 
 ## Overall Progress
 
 Phase 1: 🟢
 Phase 2: 🟢
 Phase 3: 🟢
-Phase 4: 🟡 (API + UI done; feedback not yet wired into evaluation)
-Phase 5: 🔴
+Phase 4: 🟢
+Phase 5: 🟡 (dataset + metrics + runner done; live numbers pending)
+Phase 6: 🔴
 Phase 6: 🔴
 Phase 7: 🔴
 
@@ -60,6 +62,15 @@ Phase 7: 🔴
 - [x] Streamlit frontend (result table, confidence breakdown, history,
       feedback); optional dependency group `ui`
 - [x] Live verification: real query end-to-end through API, conf 0.996
+- [x] Golden evaluation dataset: 42 SQL questions (lookup/join/agg/
+      date_range/top_n, all verified non-empty against seeded DB),
+      5 ambiguous, 6 unanswerable, 8 dangerous statements
+- [x] Expected-results snapshot (guarded executor; Decimal-safe JSON)
+- [x] Evaluation metrics: value-only execution match (alias-insensitive),
+      exact match, hallucination detection, guardrail effectiveness
+- [x] Live runner `python -m dbcrawler.evaluation` survives LLM failures
+- [x] Evaluation tests: dataset shape, SQL parsable, guardrail blocks
+      (8/8 offline), snapshot freshness checks
 
 ## Current Implementation
 
@@ -71,9 +82,9 @@ breakdown. Execution only happens after guardrails pass; app_readonly user
 
 ## Next Milestone
 
-Phase 5: Evaluation suite (golden query dataset + regression runner).
-Optionally wire user feedback (correct/incorrect) into few-shot examples
-and golden dataset first.
+Re-run `uv run python -m dbcrawler.evaluation` when OpenRouter free-tier
+daily quota resets; record real numbers. Then Phase 6: Docker
+containerization (API + UI services) + README with evaluation numbers.
 
 ## Important Constraints
 
@@ -93,10 +104,13 @@ and golden dataset first.
   bodies; handled by in-body error retry logic in llm/client.py.
 - openrouter/free occasionally returns refusal prose ("User Safety: safe")
   even after JSON retry; API degrades to `generation_failed`.
+- OpenRouter free tier caps daily free-model requests (429
+  free-models-per-day); the live evaluation needed ~53 LLM calls and hit
+  the cap mid-run. All cases degrade safely; re-run on quota reset.
 
 ## Last Verified State
 
-2026-09-17: pytest 57 passed; ruff clean. Phase 4 verified live: uvicorn
-service answered "Which employees report to Andrew Fuller?" with status
-ok, correct 4-row result, confidence 0.996 (multiquery agreement true);
-history + feedback round-tripped.
+2026-09-17: pytest 67 passed (incl. evaluation suite); ruff clean. Phase 5
+offline-verified: 42 golden SQL all execute via guarded executor, 0 empty
+results, 8/8 dangerous statements blocked. First live evaluation run hit
+the daily 429 quota; numbers pending re-run.
