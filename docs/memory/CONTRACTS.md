@@ -204,6 +204,39 @@ bundles `query_result`, `sanity`, `intent`, `multiquery`, `confidence`,
 `warnings`. Multi-query path executes the alternative SQL through the
 same `check_guardrails` → `execute_sql` chain.
 
-## Reserve (future phases — do not break)
+## VerifyQueryOutcome (service layer)
 
-API POST /v1/query (Phase 4): input {question}, output {sql, results, confidence, warnings}.
+Output of `dbcrawler.api.service.execute_generated_sql`:
+
+```json
+{
+  "status": "ok | blocked | execution_error",
+  "query_result": "QueryResult or null",
+  "sanity": "SanityResult or null",
+  "intent": "IntentVerification or null",
+  "multiquery": "MultiQueryResult or null",
+  "confidence": "ConfidenceBreakdown or null",
+  "warnings": ["string"]
+}
+```
+
+Blocked queries never reach execution (`AGENTS.md` guardrail).
+
+## REST API (Phase 4)
+
+- `POST /v1/query` body `{"question": "string"}` (min 3 chars) ->
+  `QueryResponse`: `{id, status, question, sql?, explanation?, results?,
+  row_count?, truncated?, execution_time_ms?, confidence? (dump),
+  sanity?: [{check, passed, message}], intent?, multiquery?, warnings[],
+  ambiguity?: [{description, example_sql}]}`.
+  Statuses: `ok`, `blocked`, `clarification_needed`, `execution_error`,
+  `generation_failed` (LLM failure — warnings only, never a 500).
+- `GET /v1/schema` -> SchemaRepresentation dump.
+- `GET /v1/history?limit=N` (newest first, default 50, in-memory,
+  max 200 entries) -> HistoryEntry list (superset of QueryResponse +
+  feedback).
+- `POST /v1/feedback/{id}` body `{"correct": bool, "comment": str}` ->
+  `{id, feedback}`; 404 for unknown id.
+- Startup (`lifespan`/`build_context`) loads settings, OpenRouter client
+  and extracts the schema once. `create_app(ctx)` accepts a prebuilt
+  AppContext for testing.

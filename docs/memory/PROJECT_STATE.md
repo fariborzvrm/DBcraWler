@@ -14,14 +14,14 @@ Production-oriented Text-to-SQL system with:
 
 ## Current Phase
 
-Phase 3 — Hallucination Detection (core complete, verified)
+Phase 4 — Query Interface (API + Streamlit core complete, verified live)
 
 ## Overall Progress
 
 Phase 1: 🟢
 Phase 2: 🟢
 Phase 3: 🟢
-Phase 4: 🔴
+Phase 4: 🟡 (API + UI done; feedback not yet wired into evaluation)
 Phase 5: 🔴
 Phase 6: 🔴
 Phase 7: 🔴
@@ -52,6 +52,14 @@ Phase 7: 🔴
 - [x] Multi-signal confidence scoring with transparent breakdown (ADR-012)
 - [x] validation/runner orchestration wired into demo (--execute)
 - [x] Git initialized; phases 1-2 committed (326592a)
+- [x] FastAPI service (POST /v1/query, GET /v1/schema, /v1/history,
+      POST /v1/feedback/{id}); statuses ok/blocked/clarification_needed/
+      execution_error/generation_failed; LLM failure never 500s
+- [x] In-memory bounded history store (200) + correct/incorrect feedback
+- [x] Shared pipeline service layer (api/service.py) reused by CLI pattern
+- [x] Streamlit frontend (result table, confidence breakdown, history,
+      feedback); optional dependency group `ui`
+- [x] Live verification: real query end-to-end through API, conf 0.996
 
 ## Current Implementation
 
@@ -63,8 +71,9 @@ breakdown. Execution only happens after guardrails pass; app_readonly user
 
 ## Next Milestone
 
-Phase 4: FastAPI query interface (POST /v1/query, GET /v1/schema,
-/v1/history) + frontend.
+Phase 5: Evaluation suite (golden query dataset + regression runner).
+Optionally wire user feedback (correct/incorrect) into few-shot examples
+and golden dataset first.
 
 ## Important Constraints
 
@@ -82,11 +91,12 @@ Phase 4: FastAPI query interface (POST /v1/query, GET /v1/schema,
   matters in Phase 2+ if the dataset grows).
 - openrouter/free endpoint occasionally returns 200 with upstream error
   bodies; handled by in-body error retry logic in llm/client.py.
+- openrouter/free occasionally returns refusal prose ("User Safety: safe")
+  even after JSON retry; API degrades to `generation_failed`.
 
 ## Last Verified State
 
-2026-09-17: pytest 47 passed; ruff clean. Phase 3 verified end-to-end on
-complex question ("distinct products ordered by German customers"):
-generation -> guardrails -> execution (58 rows result, 2.17ms) ->
-back-translation alignment 1.0 -> alternative EXISTS-form query reached
-agreement=True -> final confidence 0.99 (ADR-012 breakdown printed).
+2026-09-17: pytest 57 passed; ruff clean. Phase 4 verified live: uvicorn
+service answered "Which employees report to Andrew Fuller?" with status
+ok, correct 4-row result, confidence 0.996 (multiquery agreement true);
+history + feedback round-tripped.
