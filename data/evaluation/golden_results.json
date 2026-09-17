@@ -1,0 +1,5428 @@
+{
+ "How many customers do we have?": {
+  "sql": "SELECT count(*) AS customers FROM customers;",
+  "rows": [
+   {
+    "customers": 100
+   }
+  ]
+ },
+ "List all shippers.": {
+  "sql": "SELECT company_name FROM shippers ORDER BY shipper_id;",
+  "rows": [
+   {
+    "company_name": "Speedy Express"
+   },
+   {
+    "company_name": "United Package"
+   },
+   {
+    "company_name": "Federal Shipping"
+   }
+  ]
+ },
+ "Which employees are based in Sydney?": {
+  "sql": "SELECT first_name || ' ' || last_name AS employee FROM employees WHERE city = 'Sydney';",
+  "rows": [
+   {
+    "employee": "Laura Callahan"
+   }
+  ]
+ },
+ "What is the phone number of Exotic Liquids?": {
+  "sql": "SELECT phone FROM suppliers WHERE company_name = 'Exotic Liquids';",
+  "rows": [
+   {
+    "phone": "555-01-5506"
+   }
+  ]
+ },
+ "Who is the contact person at Alfreds Futterkiste?": {
+  "sql": "SELECT contact_name FROM customers WHERE company_name = 'Alfreds Futterkiste';",
+  "rows": [
+   {
+    "contact_name": "Andrew Fuller"
+   }
+  ]
+ },
+ "How many products are discontinued?": {
+  "sql": "SELECT count(*) AS discontinued FROM products WHERE discontinued = 1;",
+  "rows": [
+   {
+    "discontinued": 0
+   }
+  ]
+ },
+ "Which suppliers are headquartered in the United Kingdom?": {
+  "sql": "SELECT company_name FROM suppliers WHERE country = 'UK' ORDER BY company_name;",
+  "rows": [
+   {
+    "company_name": "Exotic Liquids"
+   },
+   {
+    "company_name": "Specialty Biscuits Ltd"
+   }
+  ]
+ },
+ "List the product names in the Beverages category.": {
+  "sql": "SELECT p.product_name FROM products p JOIN categories c ON p.category_id = c.category_id WHERE c.category_name = 'Beverages' ORDER BY p.product_name;",
+  "rows": [
+   {
+    "product_name": "Chai"
+   },
+   {
+    "product_name": "Chang"
+   },
+   {
+    "product_name": "Chartreuse verte"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica"
+   },
+   {
+    "product_name": "Irish Coffee"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri"
+   },
+   {
+    "product_name": "Otto's Lager"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier"
+   },
+   {
+    "product_name": "Sasquatch Ale"
+   },
+   {
+    "product_name": "Steeleye Stout"
+   }
+  ]
+ },
+ "How many products does each category contain?": {
+  "sql": "SELECT c.category_name, count(*) AS products FROM products p JOIN categories c ON p.category_id = c.category_id GROUP BY c.category_name ORDER BY c.category_name;",
+  "rows": [
+   {
+    "category_name": "Beverages",
+    "products": 10
+   },
+   {
+    "category_name": "Condiments",
+    "products": 8
+   },
+   {
+    "category_name": "Confections",
+    "products": 12
+   },
+   {
+    "category_name": "Dairy Products",
+    "products": 8
+   },
+   {
+    "category_name": "Grains/Cereals",
+    "products": 7
+   },
+   {
+    "category_name": "Meat/Poultry",
+    "products": 5
+   },
+   {
+    "category_name": "Produce",
+    "products": 3
+   },
+   {
+    "category_name": "Seafood",
+    "products": 7
+   }
+  ]
+ },
+ "How many products does each supplier supply?": {
+  "sql": "SELECT s.company_name, count(*) AS products FROM products p JOIN suppliers s ON p.supplier_id = s.supplier_id GROUP BY s.company_name ORDER BY products DESC, s.company_name;",
+  "rows": [
+   {
+    "company_name": "Grandma Kelly's Homestead",
+    "products": 6
+   },
+   {
+    "company_name": "Specialty Biscuits Ltd",
+    "products": 6
+   },
+   {
+    "company_name": "Lyngbysild",
+    "products": 5
+   },
+   {
+    "company_name": "New Orleans Cajun Delights",
+    "products": 5
+   },
+   {
+    "company_name": "Pavlova Ltd",
+    "products": 5
+   },
+   {
+    "company_name": "Formaggi Fortini s.r.l.",
+    "products": 4
+   },
+   {
+    "company_name": "Karkki Oy",
+    "products": 4
+   },
+   {
+    "company_name": "Mayumi's",
+    "products": 4
+   },
+   {
+    "company_name": "Tokyo Traders",
+    "products": 4
+   },
+   {
+    "company_name": "Bigfoot Breweries",
+    "products": 3
+   },
+   {
+    "company_name": "Cooperativa de Quesos",
+    "products": 3
+   },
+   {
+    "company_name": "Norske Meierier",
+    "products": 3
+   },
+   {
+    "company_name": "Refrescos Americanas LTDA",
+    "products": 3
+   },
+   {
+    "company_name": "Exotic Liquids",
+    "products": 2
+   },
+   {
+    "company_name": "Zaanse Snuiters",
+    "products": 2
+   },
+   {
+    "company_name": "PB Knackebrod AB",
+    "products": 1
+   }
+  ]
+ },
+ "How many orders has each customer placed?": {
+  "sql": "SELECT c.company_name, count(*) AS orders FROM orders o JOIN customers c ON o.customer_id = c.customer_id GROUP BY c.company_name ORDER BY orders DESC, c.company_name;",
+  "rows": [
+   {
+    "company_name": "Lonesome Pine Restaurant",
+    "orders": 6
+   },
+   {
+    "company_name": "Alfreds Futterkiste",
+    "orders": 5
+   },
+   {
+    "company_name": "Franchi S.p.A.",
+    "orders": 5
+   },
+   {
+    "company_name": "Old World Delicatessen",
+    "orders": 5
+   },
+   {
+    "company_name": "Supremes Delices",
+    "orders": 5
+   },
+   {
+    "company_name": "Toujours Plus",
+    "orders": 5
+   },
+   {
+    "company_name": "Wartian Herkku",
+    "orders": 5
+   },
+   {
+    "company_name": "Anna's Creations",
+    "orders": 4
+   },
+   {
+    "company_name": "Consolidated Holdings",
+    "orders": 4
+   },
+   {
+    "company_name": "Du monde entier",
+    "orders": 4
+   },
+   {
+    "company_name": "Furia Bacalhau",
+    "orders": 4
+   },
+   {
+    "company_name": "Hanari Carnes",
+    "orders": 4
+   },
+   {
+    "company_name": "Hungry Coyote Market",
+    "orders": 4
+   },
+   {
+    "company_name": "Island Trading",
+    "orders": 4
+   },
+   {
+    "company_name": "Leka Trading",
+    "orders": 4
+   },
+   {
+    "company_name": "Maple Syrup Imports",
+    "orders": 4
+   },
+   {
+    "company_name": "Oceano Atlantico",
+    "orders": 4
+   },
+   {
+    "company_name": "Ottesen Exports",
+    "orders": 4
+   },
+   {
+    "company_name": "Queen Cozinha",
+    "orders": 4
+   },
+   {
+    "company_name": "Rattlesnake Canyon Grocery",
+    "orders": 4
+   },
+   {
+    "company_name": "Romero y tomillo",
+    "orders": 4
+   },
+   {
+    "company_name": "Stefano & Sons",
+    "orders": 4
+   },
+   {
+    "company_name": "The Olive Grove",
+    "orders": 4
+   },
+   {
+    "company_name": "Bistro Grand",
+    "orders": 3
+   },
+   {
+    "company_name": "Bon app'",
+    "orders": 3
+   },
+   {
+    "company_name": "Cactus Comidas",
+    "orders": 3
+   },
+   {
+    "company_name": "Centro commercial Moctezuma",
+    "orders": 3
+   },
+   {
+    "company_name": "Folk och fa HB",
+    "orders": 3
+   },
+   {
+    "company_name": "Frankenversand",
+    "orders": 3
+   },
+   {
+    "company_name": "Gourmet Lanchonetes",
+    "orders": 3
+   },
+   {
+    "company_name": "La Petite Boulangerie",
+    "orders": 3
+   },
+   {
+    "company_name": "Maison Basedau",
+    "orders": 3
+   },
+   {
+    "company_name": "Mere Loup Trading",
+    "orders": 3
+   },
+   {
+    "company_name": "Nord-Ost-Fisch Handel",
+    "orders": 3
+   },
+   {
+    "company_name": "Pandora Bakery",
+    "orders": 3
+   },
+   {
+    "company_name": "Que Delicias",
+    "orders": 3
+   },
+   {
+    "company_name": "Rancho grande",
+    "orders": 3
+   },
+   {
+    "company_name": "Taco world",
+    "orders": 3
+   },
+   {
+    "company_name": "The Cracker Box",
+    "orders": 3
+   },
+   {
+    "company_name": "Toms Spezialitaten",
+    "orders": 3
+   },
+   {
+    "company_name": "Trailto Trading",
+    "orders": 3
+   },
+   {
+    "company_name": "Volvo-Filipinos",
+    "orders": 3
+   },
+   {
+    "company_name": "Wolskis Delicatessen",
+    "orders": 3
+   },
+   {
+    "company_name": "Anton's Bistro",
+    "orders": 2
+   },
+   {
+    "company_name": "Berglunds snabbkop",
+    "orders": 2
+   },
+   {
+    "company_name": "B's Beverages",
+    "orders": 2
+   },
+   {
+    "company_name": "Drachenblut Delikatessen",
+    "orders": 2
+   },
+   {
+    "company_name": "Filia Headquarters",
+    "orders": 2
+   },
+   {
+    "company_name": "France restauration",
+    "orders": 2
+   },
+   {
+    "company_name": "Galeria del gastronoma",
+    "orders": 2
+   },
+   {
+    "company_name": "Golden Dragon Foods",
+    "orders": 2
+   },
+   {
+    "company_name": "Great Lakes Food Market",
+    "orders": 2
+   },
+   {
+    "company_name": "HILARION-Abastos",
+    "orders": 2
+   },
+   {
+    "company_name": "La corne d'abondance",
+    "orders": 2
+   },
+   {
+    "company_name": "Palo Alto Trading",
+    "orders": 2
+   },
+   {
+    "company_name": "Pericles Catering",
+    "orders": 2
+   },
+   {
+    "company_name": "Piccolo Ministranti",
+    "orders": 2
+   },
+   {
+    "company_name": "Princesa Isabella",
+    "orders": 2
+   },
+   {
+    "company_name": "QUICK-Stop",
+    "orders": 2
+   },
+   {
+    "company_name": "Ricardo Adocicados",
+    "orders": 2
+   },
+   {
+    "company_name": "Richter Supermarkt",
+    "orders": 2
+   },
+   {
+    "company_name": "River Valley Farms",
+    "orders": 2
+   },
+   {
+    "company_name": "Sao Paulo Traders",
+    "orders": 2
+   },
+   {
+    "company_name": "Save-a-lot Markets",
+    "orders": 2
+   },
+   {
+    "company_name": "Simonsbistro",
+    "orders": 2
+   },
+   {
+    "company_name": "Sitio Papelaria",
+    "orders": 2
+   },
+   {
+    "company_name": "Tastys Bakery",
+    "orders": 2
+   },
+   {
+    "company_name": "The Big Cheese",
+    "orders": 2
+   },
+   {
+    "company_name": "United Package",
+    "orders": 2
+   },
+   {
+    "company_name": "Wellness Foods",
+    "orders": 2
+   },
+   {
+    "company_name": "Wellworth Importers",
+    "orders": 2
+   },
+   {
+    "company_name": "White Clover Markets",
+    "orders": 2
+   },
+   {
+    "company_name": "Willy Boeken",
+    "orders": 2
+   },
+   {
+    "company_name": "Zaanse Sons",
+    "orders": 2
+   },
+   {
+    "company_name": "Zverev Import",
+    "orders": 2
+   },
+   {
+    "company_name": "Bolido Comidas",
+    "orders": 1
+   },
+   {
+    "company_name": "Bottom-Dollar Marketways",
+    "orders": 1
+   },
+   {
+    "company_name": "Comercio Mineiro",
+    "orders": 1
+   },
+   {
+    "company_name": "Folies gourmandes",
+    "orders": 1
+   },
+   {
+    "company_name": "Konigsessen",
+    "orders": 1
+   },
+   {
+    "company_name": "Lacomble Ltd",
+    "orders": 1
+   },
+   {
+    "company_name": "Lino Delicatesse",
+    "orders": 1
+   },
+   {
+    "company_name": "Magazzini Alimentari",
+    "orders": 1
+   },
+   {
+    "company_name": "Morgansen & Sons",
+    "orders": 1
+   },
+   {
+    "company_name": "Nordic Seafood Export",
+    "orders": 1
+   },
+   {
+    "company_name": "Scandi Antiques",
+    "orders": 1
+   },
+   {
+    "company_name": "Sunrise Coffee Roasters",
+    "orders": 1
+   },
+   {
+    "company_name": "Trails Head Gourmet",
+    "orders": 1
+   },
+   {
+    "company_name": "Vaffelstuga",
+    "orders": 1
+   },
+   {
+    "company_name": "Victory Foods",
+    "orders": 1
+   },
+   {
+    "company_name": "Zeus Trading",
+    "orders": 1
+   }
+  ]
+ },
+ "Which product names were ordered in quantity of 40 or more in a single line item?": {
+  "sql": "SELECT DISTINCT p.product_name FROM order_details od JOIN products p ON od.product_id = p.product_id WHERE od.quantity >= 40;",
+  "rows": [
+   {
+    "product_name": "Chai"
+   },
+   {
+    "product_name": "Zaanse Koeken"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni"
+   },
+   {
+    "product_name": "Mishi Kobe Niku"
+   },
+   {
+    "product_name": "Gorgonzola Telino"
+   },
+   {
+    "product_name": "Escargots Ruens"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples"
+   },
+   {
+    "product_name": "Sir Rodney's Scones"
+   },
+   {
+    "product_name": "Genen Shouyu"
+   },
+   {
+    "product_name": "Gravad lax"
+   },
+   {
+    "product_name": "Mascarpone Fabioli"
+   }
+  ]
+ },
+ "List order ids and customer company names for orders handled by employees named Fuller.": {
+  "sql": "SELECT o.order_id, c.company_name FROM orders o JOIN employees e ON o.employee_id = e.employee_id JOIN customers c ON o.customer_id = c.customer_id WHERE e.last_name = 'Fuller';",
+  "rows": [
+   {
+    "order_id": 4,
+    "company_name": "Lacomble Ltd"
+   },
+   {
+    "order_id": 10,
+    "company_name": "Golden Dragon Foods"
+   },
+   {
+    "order_id": 16,
+    "company_name": "Lonesome Pine Restaurant"
+   },
+   {
+    "order_id": 18,
+    "company_name": "Maison Basedau"
+   },
+   {
+    "order_id": 62,
+    "company_name": "Pericles Catering"
+   },
+   {
+    "order_id": 75,
+    "company_name": "Toujours Plus"
+   },
+   {
+    "order_id": 95,
+    "company_name": "Cactus Comidas"
+   },
+   {
+    "order_id": 107,
+    "company_name": "Bistro Grand"
+   },
+   {
+    "order_id": 126,
+    "company_name": "Centro commercial Moctezuma"
+   },
+   {
+    "order_id": 136,
+    "company_name": "Anton's Bistro"
+   },
+   {
+    "order_id": 165,
+    "company_name": "La Petite Boulangerie"
+   },
+   {
+    "order_id": 166,
+    "company_name": "The Olive Grove"
+   },
+   {
+    "order_id": 168,
+    "company_name": "Volvo-Filipinos"
+   },
+   {
+    "order_id": 176,
+    "company_name": "Oceano Atlantico"
+   },
+   {
+    "order_id": 177,
+    "company_name": "Stefano & Sons"
+   },
+   {
+    "order_id": 197,
+    "company_name": "Romero y tomillo"
+   },
+   {
+    "order_id": 200,
+    "company_name": "QUICK-Stop"
+   },
+   {
+    "order_id": 208,
+    "company_name": "Lonesome Pine Restaurant"
+   },
+   {
+    "order_id": 222,
+    "company_name": "Alfreds Futterkiste"
+   },
+   {
+    "order_id": 238,
+    "company_name": "Island Trading"
+   }
+  ]
+ },
+ "Which products are supplied from the United Kingdom?": {
+  "sql": "SELECT p.product_name FROM products p JOIN suppliers s ON p.supplier_id = s.supplier_id where s.country = 'UK' ORDER BY p.product_name;",
+  "rows": [
+   {
+    "product_name": "Camembert Pierrot"
+   },
+   {
+    "product_name": "Chang"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix"
+   },
+   {
+    "product_name": "Chocolade"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni"
+   },
+   {
+    "product_name": "Tourti\u00e8re"
+   }
+  ]
+ },
+ "For each shipper, how many orders did they deliver?": {
+  "sql": "SELECT sh.company_name, count(*) AS shipments FROM orders o JOIN shippers sh ON o.shipper_id = sh.shipper_id GROUP BY sh.company_name;",
+  "rows": [
+   {
+    "company_name": "United Package",
+    "shipments": 89
+   },
+   {
+    "company_name": "Speedy Express",
+    "shipments": 71
+   },
+   {
+    "company_name": "Federal Shipping",
+    "shipments": 80
+   }
+  ]
+ },
+ "What is total order revenue per customer?": {
+  "sql": "SELECT c.company_name, SUM(od.quantity * od.unit_price * (1 - od.discount)) AS revenue FROM order_details od JOIN orders o ON od.order_id = o.order_id JOIN customers c ON o.customer_id = c.customer_id GROUP BY c.company_name ORDER BY revenue DESC;",
+  "rows": [
+   {
+    "company_name": "Hungry Coyote Market",
+    "revenue": "31890.1585"
+   },
+   {
+    "company_name": "Supremes Delices",
+    "revenue": "22725.7575"
+   },
+   {
+    "company_name": "Rattlesnake Canyon Grocery",
+    "revenue": "22320.8990"
+   },
+   {
+    "company_name": "Alfreds Futterkiste",
+    "revenue": "22166.5205"
+   },
+   {
+    "company_name": "Wartian Herkku",
+    "revenue": "21004.0370"
+   },
+   {
+    "company_name": "Pandora Bakery",
+    "revenue": "20177.9175"
+   },
+   {
+    "company_name": "Franchi S.p.A.",
+    "revenue": "19969.1410"
+   },
+   {
+    "company_name": "Romero y tomillo",
+    "revenue": "19679.0075"
+   },
+   {
+    "company_name": "Toujours Plus",
+    "revenue": "19373.9115"
+   },
+   {
+    "company_name": "Queen Cozinha",
+    "revenue": "19021.1480"
+   },
+   {
+    "company_name": "La Petite Boulangerie",
+    "revenue": "18667.6575"
+   },
+   {
+    "company_name": "Maple Syrup Imports",
+    "revenue": "17428.3270"
+   },
+   {
+    "company_name": "Island Trading",
+    "revenue": "17101.4615"
+   },
+   {
+    "company_name": "Leka Trading",
+    "revenue": "17023.2570"
+   },
+   {
+    "company_name": "Lonesome Pine Restaurant",
+    "revenue": "16927.0510"
+   },
+   {
+    "company_name": "Tastys Bakery",
+    "revenue": "16489.6340"
+   },
+   {
+    "company_name": "Rancho grande",
+    "revenue": "16306.9640"
+   },
+   {
+    "company_name": "Du monde entier",
+    "revenue": "16279.7385"
+   },
+   {
+    "company_name": "Cactus Comidas",
+    "revenue": "16056.2040"
+   },
+   {
+    "company_name": "Centro commercial Moctezuma",
+    "revenue": "16001.7800"
+   },
+   {
+    "company_name": "Ottesen Exports",
+    "revenue": "15645.8855"
+   },
+   {
+    "company_name": "Stefano & Sons",
+    "revenue": "14953.4140"
+   },
+   {
+    "company_name": "Frankenversand",
+    "revenue": "14804.5015"
+   },
+   {
+    "company_name": "Consolidated Holdings",
+    "revenue": "14118.5685"
+   },
+   {
+    "company_name": "Ricardo Adocicados",
+    "revenue": "13762.3380"
+   },
+   {
+    "company_name": "Willy Boeken",
+    "revenue": "13674.5540"
+   },
+   {
+    "company_name": "Bistro Grand",
+    "revenue": "13401.1290"
+   },
+   {
+    "company_name": "Maison Basedau",
+    "revenue": "13070.4090"
+   },
+   {
+    "company_name": "Zaanse Sons",
+    "revenue": "13054.7695"
+   },
+   {
+    "company_name": "Trailto Trading",
+    "revenue": "12968.4630"
+   },
+   {
+    "company_name": "Taco world",
+    "revenue": "12439.7850"
+   },
+   {
+    "company_name": "Old World Delicatessen",
+    "revenue": "12235.4090"
+   },
+   {
+    "company_name": "Anna's Creations",
+    "revenue": "11988.9505"
+   },
+   {
+    "company_name": "Palo Alto Trading",
+    "revenue": "11411.5985"
+   },
+   {
+    "company_name": "Oceano Atlantico",
+    "revenue": "11301.3635"
+   },
+   {
+    "company_name": "White Clover Markets",
+    "revenue": "11120.8465"
+   },
+   {
+    "company_name": "Pericles Catering",
+    "revenue": "11105.3610"
+   },
+   {
+    "company_name": "Sitio Papelaria",
+    "revenue": "11013.6690"
+   },
+   {
+    "company_name": "France restauration",
+    "revenue": "10987.9500"
+   },
+   {
+    "company_name": "Bon app'",
+    "revenue": "10661.1175"
+   },
+   {
+    "company_name": "Galeria del gastronoma",
+    "revenue": "10444.5080"
+   },
+   {
+    "company_name": "Piccolo Ministranti",
+    "revenue": "10043.9100"
+   },
+   {
+    "company_name": "Folk och fa HB",
+    "revenue": "9802.8725"
+   },
+   {
+    "company_name": "Filia Headquarters",
+    "revenue": "9676.9450"
+   },
+   {
+    "company_name": "Simonsbistro",
+    "revenue": "9676.0310"
+   },
+   {
+    "company_name": "Princesa Isabella",
+    "revenue": "9556.6345"
+   },
+   {
+    "company_name": "Nord-Ost-Fisch Handel",
+    "revenue": "9234.9165"
+   },
+   {
+    "company_name": "The Olive Grove",
+    "revenue": "8758.9810"
+   },
+   {
+    "company_name": "Hanari Carnes",
+    "revenue": "8590.4940"
+   },
+   {
+    "company_name": "Sao Paulo Traders",
+    "revenue": "8439.8265"
+   },
+   {
+    "company_name": "Mere Loup Trading",
+    "revenue": "7859.5415"
+   },
+   {
+    "company_name": "Zverev Import",
+    "revenue": "7724.5140"
+   },
+   {
+    "company_name": "B's Beverages",
+    "revenue": "7565.8155"
+   },
+   {
+    "company_name": "Berglunds snabbkop",
+    "revenue": "7158.6840"
+   },
+   {
+    "company_name": "Toms Spezialitaten",
+    "revenue": "7158.2480"
+   },
+   {
+    "company_name": "Save-a-lot Markets",
+    "revenue": "6953.7785"
+   },
+   {
+    "company_name": "Furia Bacalhau",
+    "revenue": "6891.7135"
+   },
+   {
+    "company_name": "River Valley Farms",
+    "revenue": "6694.3775"
+   },
+   {
+    "company_name": "Great Lakes Food Market",
+    "revenue": "6512.3025"
+   },
+   {
+    "company_name": "Wellness Foods",
+    "revenue": "6291.5970"
+   },
+   {
+    "company_name": "La corne d'abondance",
+    "revenue": "5811.3820"
+   },
+   {
+    "company_name": "Drachenblut Delikatessen",
+    "revenue": "5586.7975"
+   },
+   {
+    "company_name": "Wolskis Delicatessen",
+    "revenue": "5506.3045"
+   },
+   {
+    "company_name": "Anton's Bistro",
+    "revenue": "5499.5300"
+   },
+   {
+    "company_name": "Magazzini Alimentari",
+    "revenue": "5489.8300"
+   },
+   {
+    "company_name": "Lacomble Ltd",
+    "revenue": "5125.2390"
+   },
+   {
+    "company_name": "The Cracker Box",
+    "revenue": "5001.2275"
+   },
+   {
+    "company_name": "Que Delicias",
+    "revenue": "4968.8220"
+   },
+   {
+    "company_name": "Comercio Mineiro",
+    "revenue": "4883.3100"
+   },
+   {
+    "company_name": "Gourmet Lanchonetes",
+    "revenue": "4580.4520"
+   },
+   {
+    "company_name": "Richter Supermarkt",
+    "revenue": "4576.0820"
+   },
+   {
+    "company_name": "QUICK-Stop",
+    "revenue": "4533.0000"
+   },
+   {
+    "company_name": "Morgansen & Sons",
+    "revenue": "4526.4695"
+   },
+   {
+    "company_name": "HILARION-Abastos",
+    "revenue": "3663.3500"
+   },
+   {
+    "company_name": "Sunrise Coffee Roasters",
+    "revenue": "3322.5790"
+   },
+   {
+    "company_name": "Victory Foods",
+    "revenue": "3293.1750"
+   },
+   {
+    "company_name": "The Big Cheese",
+    "revenue": "3258.8780"
+   },
+   {
+    "company_name": "Volvo-Filipinos",
+    "revenue": "3254.5885"
+   },
+   {
+    "company_name": "Zeus Trading",
+    "revenue": "2683.1660"
+   },
+   {
+    "company_name": "Wellworth Importers",
+    "revenue": "2500.6900"
+   },
+   {
+    "company_name": "Folies gourmandes",
+    "revenue": "2286.5005"
+   },
+   {
+    "company_name": "Golden Dragon Foods",
+    "revenue": "1991.6200"
+   },
+   {
+    "company_name": "Scandi Antiques",
+    "revenue": "1751.8500"
+   },
+   {
+    "company_name": "Lino Delicatesse",
+    "revenue": "1638.9450"
+   },
+   {
+    "company_name": "Konigsessen",
+    "revenue": "1628.4710"
+   },
+   {
+    "company_name": "United Package",
+    "revenue": "1615.2375"
+   },
+   {
+    "company_name": "Bolido Comidas",
+    "revenue": "1574.9800"
+   },
+   {
+    "company_name": "Bottom-Dollar Marketways",
+    "revenue": "1511.4785"
+   },
+   {
+    "company_name": "Trails Head Gourmet",
+    "revenue": "1419.2820"
+   },
+   {
+    "company_name": "Vaffelstuga",
+    "revenue": "628.4520"
+   },
+   {
+    "company_name": "Nordic Seafood Export",
+    "revenue": "195.3900"
+   }
+  ]
+ },
+ "What is the total number of order line items?": {
+  "sql": "SELECT count(*) AS line_items FROM order_details;",
+  "rows": [
+   {
+    "line_items": 737
+   }
+  ]
+ },
+ "What is the average unit price across all products?": {
+  "sql": "SELECT ROUND(AVG(unit_price), 2) AS avg_price FROM products;",
+  "rows": [
+   {
+    "avg_price": "58.60"
+   }
+  ]
+ },
+ "What is the total freight charged across all orders?": {
+  "sql": "SELECT ROUND(SUM(freight), 2) AS total_freight FROM orders;",
+  "rows": [
+   {
+    "total_freight": "11299.10"
+   }
+  ]
+ },
+ "How many orders were shipped to Germany?": {
+  "sql": "SELECT count(*) AS orders FROM orders WHERE ship_country = 'Germany';",
+  "rows": [
+   {
+    "orders": 26
+   }
+  ]
+ },
+ "What is the average quantity per order line item?": {
+  "sql": "SELECT ROUND(AVG(quantity), 2) AS avg_quantity FROM order_details;",
+  "rows": [
+   {
+    "avg_quantity": "21.07"
+   }
+  ]
+ },
+ "What is the total stock value across all products?": {
+  "sql": "SELECT ROUND(SUM(unit_price * units_in_stock), 2) AS stock_value FROM products WHERE discontinued = 0;",
+  "rows": [
+   {
+    "stock_value": "208534.35"
+   }
+  ]
+ },
+ "How many orders does each order status have?": {
+  "sql": "SELECT order_status, count(*) AS orders FROM orders GROUP BY order_status;",
+  "rows": [
+   {
+    "order_status": "completed",
+    "orders": 104
+   },
+   {
+    "order_status": "pending",
+    "orders": 45
+   },
+   {
+    "order_status": "cancelled",
+    "orders": 43
+   },
+   {
+    "order_status": "shipped",
+    "orders": 48
+   }
+  ]
+ },
+ "Count the customers by country.": {
+  "sql": "SELECT country, count(*) AS customers FROM customers GROUP BY country ORDER BY customers DESC, country;",
+  "rows": [
+   {
+    "country": "Germany",
+    "customers": 25
+   },
+   {
+    "country": "Italy",
+    "customers": 25
+   },
+   {
+    "country": "Japan",
+    "customers": 25
+   },
+   {
+    "country": "USA",
+    "customers": 25
+   }
+  ]
+ },
+ "How many orders were placed in 1997?": {
+  "sql": "SELECT count(*) AS orders FROM orders WHERE order_date >= '2024-01-01' AND order_date < '2025-01-01';",
+  "rows": [
+   {
+    "orders": 81
+   }
+  ]
+ },
+ "Which orders shipped later than their required date?": {
+  "sql": "SELECT o.order_id FROM orders o WHERE o.shipped_date > o.required_date ORDER BY o.order_id;",
+  "rows": [
+   {
+    "order_id": 6
+   },
+   {
+    "order_id": 7
+   },
+   {
+    "order_id": 8
+   },
+   {
+    "order_id": 9
+   },
+   {
+    "order_id": 13
+   },
+   {
+    "order_id": 18
+   },
+   {
+    "order_id": 22
+   },
+   {
+    "order_id": 31
+   },
+   {
+    "order_id": 40
+   },
+   {
+    "order_id": 55
+   },
+   {
+    "order_id": 71
+   },
+   {
+    "order_id": 77
+   },
+   {
+    "order_id": 78
+   },
+   {
+    "order_id": 96
+   },
+   {
+    "order_id": 118
+   },
+   {
+    "order_id": 128
+   },
+   {
+    "order_id": 134
+   },
+   {
+    "order_id": 138
+   },
+   {
+    "order_id": 142
+   },
+   {
+    "order_id": 166
+   },
+   {
+    "order_id": 191
+   },
+   {
+    "order_id": 196
+   },
+   {
+    "order_id": 221
+   },
+   {
+    "order_id": 238
+   }
+  ]
+ },
+ "What was the total number of line items in 2025?": {
+  "sql": "SELECT count(*) AS line_items FROM order_details WHERE order_date >= '2025-01-01' AND order_date < '2026-01-01';",
+  "rows": [
+   {
+    "line_items": 250
+   }
+  ]
+ },
+ "Which orders were placed in the last quarter of 2024 and shipped to France?": {
+  "sql": "SELECT o.order_id FROM orders o WHERE o.order_date >= '2024-10-01' AND o.order_date < '2025-01-01' AND o.ship_country = 'France' ORDER BY o.order_id;",
+  "rows": [
+   {
+    "order_id": 59
+   },
+   {
+    "order_id": 160
+   }
+  ]
+ },
+ "Which orders have not been shipped yet?": {
+  "sql": "SELECT order_id FROM orders WHERE shipped_date IS NULL ORDER BY order_id;",
+  "rows": [
+   {
+    "order_id": 2
+   },
+   {
+    "order_id": 3
+   },
+   {
+    "order_id": 10
+   },
+   {
+    "order_id": 16
+   },
+   {
+    "order_id": 17
+   },
+   {
+    "order_id": 25
+   },
+   {
+    "order_id": 26
+   },
+   {
+    "order_id": 30
+   },
+   {
+    "order_id": 34
+   },
+   {
+    "order_id": 39
+   },
+   {
+    "order_id": 43
+   },
+   {
+    "order_id": 47
+   },
+   {
+    "order_id": 48
+   },
+   {
+    "order_id": 50
+   },
+   {
+    "order_id": 52
+   },
+   {
+    "order_id": 53
+   },
+   {
+    "order_id": 54
+   },
+   {
+    "order_id": 56
+   },
+   {
+    "order_id": 59
+   },
+   {
+    "order_id": 61
+   },
+   {
+    "order_id": 62
+   },
+   {
+    "order_id": 63
+   },
+   {
+    "order_id": 67
+   },
+   {
+    "order_id": 70
+   },
+   {
+    "order_id": 73
+   },
+   {
+    "order_id": 75
+   },
+   {
+    "order_id": 79
+   },
+   {
+    "order_id": 83
+   },
+   {
+    "order_id": 84
+   },
+   {
+    "order_id": 87
+   },
+   {
+    "order_id": 90
+   },
+   {
+    "order_id": 91
+   },
+   {
+    "order_id": 93
+   },
+   {
+    "order_id": 98
+   },
+   {
+    "order_id": 99
+   },
+   {
+    "order_id": 100
+   },
+   {
+    "order_id": 103
+   },
+   {
+    "order_id": 105
+   },
+   {
+    "order_id": 111
+   },
+   {
+    "order_id": 113
+   },
+   {
+    "order_id": 114
+   },
+   {
+    "order_id": 115
+   },
+   {
+    "order_id": 119
+   },
+   {
+    "order_id": 121
+   },
+   {
+    "order_id": 123
+   },
+   {
+    "order_id": 125
+   },
+   {
+    "order_id": 129
+   },
+   {
+    "order_id": 132
+   },
+   {
+    "order_id": 135
+   },
+   {
+    "order_id": 136
+   },
+   {
+    "order_id": 139
+   },
+   {
+    "order_id": 143
+   },
+   {
+    "order_id": 144
+   },
+   {
+    "order_id": 146
+   },
+   {
+    "order_id": 150
+   },
+   {
+    "order_id": 152
+   },
+   {
+    "order_id": 155
+   },
+   {
+    "order_id": 156
+   },
+   {
+    "order_id": 157
+   },
+   {
+    "order_id": 159
+   },
+   {
+    "order_id": 160
+   },
+   {
+    "order_id": 161
+   },
+   {
+    "order_id": 171
+   },
+   {
+    "order_id": 173
+   },
+   {
+    "order_id": 174
+   },
+   {
+    "order_id": 176
+   },
+   {
+    "order_id": 181
+   },
+   {
+    "order_id": 183
+   },
+   {
+    "order_id": 188
+   },
+   {
+    "order_id": 189
+   },
+   {
+    "order_id": 194
+   },
+   {
+    "order_id": 198
+   },
+   {
+    "order_id": 200
+   },
+   {
+    "order_id": 201
+   },
+   {
+    "order_id": 203
+   },
+   {
+    "order_id": 206
+   },
+   {
+    "order_id": 207
+   },
+   {
+    "order_id": 211
+   },
+   {
+    "order_id": 213
+   },
+   {
+    "order_id": 222
+   },
+   {
+    "order_id": 223
+   },
+   {
+    "order_id": 224
+   },
+   {
+    "order_id": 227
+   },
+   {
+    "order_id": 228
+   },
+   {
+    "order_id": 229
+   },
+   {
+    "order_id": 232
+   },
+   {
+    "order_id": 234
+   },
+   {
+    "order_id": 239
+   }
+  ]
+ },
+ "How many customers joined before 2020?": {
+  "sql": "SELECT count(*) AS customers FROM customers WHERE joined_at < '2020-01-01';",
+  "rows": [
+   {
+    "customers": 33
+   }
+  ]
+ },
+ "Which employee placed the most orders?": {
+  "sql": "SELECT e.first_name || ' ' || e.last_name AS employee, count(*) AS orders FROM orders o JOIN employees e ON o.employee_id = e.employee_id GROUP BY employee ORDER BY orders DESC LIMIT 1;",
+  "rows": [
+   {
+    "employee": "Janet Leverling",
+    "orders": 34
+   },
+   {
+    "employee": "Anne Dodsworth",
+    "orders": 32
+   },
+   {
+    "employee": "Laura Callahan",
+    "orders": 29
+   },
+   {
+    "employee": "Nancy Davolio",
+    "orders": 28
+   },
+   {
+    "employee": "Robert King",
+    "orders": 28
+   },
+   {
+    "employee": "Margaret Peacock",
+    "orders": 27
+   },
+   {
+    "employee": "Steven Buchanan",
+    "orders": 22
+   },
+   {
+    "employee": "Michael Suyama",
+    "orders": 20
+   },
+   {
+    "employee": "Andrew Fuller",
+    "orders": 20
+   }
+  ]
+ },
+ "Which three products have the highest unit price?": {
+  "sql": "SELECT product_name, unit_price FROM products ORDER BY unit_price DESC, product_name LIMIT 3;",
+  "rows": [
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "116.91"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "114.69"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "110.01"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "108.78"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "108.25"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "103.36"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "101.79"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "100.38"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "97.86"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "97.58"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "97.07"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "92.26"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "86.99"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "83.73"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "83.40"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "82.44"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "82.02"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "80.60"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "78.10"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "75.05"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "74.43"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "73.59"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "73.43"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "72.67"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "71.61"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "71.58"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "67.03"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "67.01"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "66.67"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "65.85"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "64.13"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "63.60"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "63.38"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "58.20"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "55.38"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "50.50"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "45.74"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "36.96"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "35.50"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "35.48"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "33.36"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "32.54"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "31.33"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "30.35"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "29.09"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "24.13"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "23.79"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "22.80"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "22.58"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "20.05"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "19.77"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.83"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.75"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "14.85"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "12.36"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "11.54"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "10.82"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.77"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "10.27"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.24"
+   }
+  ]
+ },
+ "Which five customers placed the most orders?": {
+  "sql": "SELECT c.company_name, count(*) AS orders FROM orders o JOIN customers c ON o.customer_id = c.customer_id GROUP BY c.company_name ORDER BY orders DESC, c.company_name LIMIT 5;",
+  "rows": [
+   {
+    "company_name": "Lonesome Pine Restaurant",
+    "orders": 6
+   },
+   {
+    "company_name": "Alfreds Futterkiste",
+    "orders": 5
+   },
+   {
+    "company_name": "Franchi S.p.A.",
+    "orders": 5
+   },
+   {
+    "company_name": "Old World Delicatessen",
+    "orders": 5
+   },
+   {
+    "company_name": "Supremes Delices",
+    "orders": 5
+   },
+   {
+    "company_name": "Toujours Plus",
+    "orders": 5
+   },
+   {
+    "company_name": "Wartian Herkku",
+    "orders": 5
+   },
+   {
+    "company_name": "Anna's Creations",
+    "orders": 4
+   },
+   {
+    "company_name": "Consolidated Holdings",
+    "orders": 4
+   },
+   {
+    "company_name": "Du monde entier",
+    "orders": 4
+   },
+   {
+    "company_name": "Furia Bacalhau",
+    "orders": 4
+   },
+   {
+    "company_name": "Hanari Carnes",
+    "orders": 4
+   },
+   {
+    "company_name": "Hungry Coyote Market",
+    "orders": 4
+   },
+   {
+    "company_name": "Island Trading",
+    "orders": 4
+   },
+   {
+    "company_name": "Leka Trading",
+    "orders": 4
+   },
+   {
+    "company_name": "Maple Syrup Imports",
+    "orders": 4
+   },
+   {
+    "company_name": "Oceano Atlantico",
+    "orders": 4
+   },
+   {
+    "company_name": "Ottesen Exports",
+    "orders": 4
+   },
+   {
+    "company_name": "Queen Cozinha",
+    "orders": 4
+   },
+   {
+    "company_name": "Rattlesnake Canyon Grocery",
+    "orders": 4
+   },
+   {
+    "company_name": "Romero y tomillo",
+    "orders": 4
+   },
+   {
+    "company_name": "Stefano & Sons",
+    "orders": 4
+   },
+   {
+    "company_name": "The Olive Grove",
+    "orders": 4
+   },
+   {
+    "company_name": "Bistro Grand",
+    "orders": 3
+   },
+   {
+    "company_name": "Bon app'",
+    "orders": 3
+   },
+   {
+    "company_name": "Cactus Comidas",
+    "orders": 3
+   },
+   {
+    "company_name": "Centro commercial Moctezuma",
+    "orders": 3
+   },
+   {
+    "company_name": "Folk och fa HB",
+    "orders": 3
+   },
+   {
+    "company_name": "Frankenversand",
+    "orders": 3
+   },
+   {
+    "company_name": "Gourmet Lanchonetes",
+    "orders": 3
+   },
+   {
+    "company_name": "La Petite Boulangerie",
+    "orders": 3
+   },
+   {
+    "company_name": "Maison Basedau",
+    "orders": 3
+   },
+   {
+    "company_name": "Mere Loup Trading",
+    "orders": 3
+   },
+   {
+    "company_name": "Nord-Ost-Fisch Handel",
+    "orders": 3
+   },
+   {
+    "company_name": "Pandora Bakery",
+    "orders": 3
+   },
+   {
+    "company_name": "Que Delicias",
+    "orders": 3
+   },
+   {
+    "company_name": "Rancho grande",
+    "orders": 3
+   },
+   {
+    "company_name": "Taco world",
+    "orders": 3
+   },
+   {
+    "company_name": "The Cracker Box",
+    "orders": 3
+   },
+   {
+    "company_name": "Toms Spezialitaten",
+    "orders": 3
+   },
+   {
+    "company_name": "Trailto Trading",
+    "orders": 3
+   },
+   {
+    "company_name": "Volvo-Filipinos",
+    "orders": 3
+   },
+   {
+    "company_name": "Wolskis Delicatessen",
+    "orders": 3
+   },
+   {
+    "company_name": "Anton's Bistro",
+    "orders": 2
+   },
+   {
+    "company_name": "Berglunds snabbkop",
+    "orders": 2
+   },
+   {
+    "company_name": "B's Beverages",
+    "orders": 2
+   },
+   {
+    "company_name": "Drachenblut Delikatessen",
+    "orders": 2
+   },
+   {
+    "company_name": "Filia Headquarters",
+    "orders": 2
+   },
+   {
+    "company_name": "France restauration",
+    "orders": 2
+   },
+   {
+    "company_name": "Galeria del gastronoma",
+    "orders": 2
+   },
+   {
+    "company_name": "Golden Dragon Foods",
+    "orders": 2
+   },
+   {
+    "company_name": "Great Lakes Food Market",
+    "orders": 2
+   },
+   {
+    "company_name": "HILARION-Abastos",
+    "orders": 2
+   },
+   {
+    "company_name": "La corne d'abondance",
+    "orders": 2
+   },
+   {
+    "company_name": "Palo Alto Trading",
+    "orders": 2
+   },
+   {
+    "company_name": "Pericles Catering",
+    "orders": 2
+   },
+   {
+    "company_name": "Piccolo Ministranti",
+    "orders": 2
+   },
+   {
+    "company_name": "Princesa Isabella",
+    "orders": 2
+   },
+   {
+    "company_name": "QUICK-Stop",
+    "orders": 2
+   },
+   {
+    "company_name": "Ricardo Adocicados",
+    "orders": 2
+   },
+   {
+    "company_name": "Richter Supermarkt",
+    "orders": 2
+   },
+   {
+    "company_name": "River Valley Farms",
+    "orders": 2
+   },
+   {
+    "company_name": "Sao Paulo Traders",
+    "orders": 2
+   },
+   {
+    "company_name": "Save-a-lot Markets",
+    "orders": 2
+   },
+   {
+    "company_name": "Simonsbistro",
+    "orders": 2
+   },
+   {
+    "company_name": "Sitio Papelaria",
+    "orders": 2
+   },
+   {
+    "company_name": "Tastys Bakery",
+    "orders": 2
+   },
+   {
+    "company_name": "The Big Cheese",
+    "orders": 2
+   },
+   {
+    "company_name": "United Package",
+    "orders": 2
+   },
+   {
+    "company_name": "Wellness Foods",
+    "orders": 2
+   },
+   {
+    "company_name": "Wellworth Importers",
+    "orders": 2
+   },
+   {
+    "company_name": "White Clover Markets",
+    "orders": 2
+   },
+   {
+    "company_name": "Willy Boeken",
+    "orders": 2
+   },
+   {
+    "company_name": "Zaanse Sons",
+    "orders": 2
+   },
+   {
+    "company_name": "Zverev Import",
+    "orders": 2
+   },
+   {
+    "company_name": "Bolido Comidas",
+    "orders": 1
+   },
+   {
+    "company_name": "Bottom-Dollar Marketways",
+    "orders": 1
+   },
+   {
+    "company_name": "Comercio Mineiro",
+    "orders": 1
+   },
+   {
+    "company_name": "Folies gourmandes",
+    "orders": 1
+   },
+   {
+    "company_name": "Konigsessen",
+    "orders": 1
+   },
+   {
+    "company_name": "Lacomble Ltd",
+    "orders": 1
+   },
+   {
+    "company_name": "Lino Delicatesse",
+    "orders": 1
+   },
+   {
+    "company_name": "Magazzini Alimentari",
+    "orders": 1
+   },
+   {
+    "company_name": "Morgansen & Sons",
+    "orders": 1
+   },
+   {
+    "company_name": "Nordic Seafood Export",
+    "orders": 1
+   },
+   {
+    "company_name": "Scandi Antiques",
+    "orders": 1
+   },
+   {
+    "company_name": "Sunrise Coffee Roasters",
+    "orders": 1
+   },
+   {
+    "company_name": "Trails Head Gourmet",
+    "orders": 1
+   },
+   {
+    "company_name": "Vaffelstuga",
+    "orders": 1
+   },
+   {
+    "company_name": "Victory Foods",
+    "orders": 1
+   },
+   {
+    "company_name": "Zeus Trading",
+    "orders": 1
+   }
+  ]
+ },
+ "Which product has the lowest units in stock?": {
+  "sql": "SELECT product_name, units_in_stock FROM products WHERE units_in_stock = (SELECT MIN(units_in_stock) FROM products) ORDER BY product_name;",
+  "rows": [
+   {
+    "product_name": "Cajun Granola",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Filipino Granola",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Gravad lax",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Ikura",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Pavlova",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Perth Pasties",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "units_in_stock": 0
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "units_in_stock": 0
+   }
+  ]
+ },
+ "What is the most expensive product per order line item ever sold?": {
+  "sql": "SELECT p.product_name, od.unit_price FROM order_details od JOIN products p ON od.product_id = p.product_id ORDER BY od.unit_price DESC LIMIT 1;",
+  "rows": [
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "134.37"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "133.99"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "129.40"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "129.09"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "128.85"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "128.47"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "126.49"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "126.25"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "126.03"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "125.71"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "125.42"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "124.56"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "123.71"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "123.59"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "123.21"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "121.98"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "121.86"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "121.65"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "121.25"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "120.98"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "120.86"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "120.19"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "119.52"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "119.36"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "119.34"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "118.59"
+   },
+   {
+    "product_name": "Irish Coffee",
+    "unit_price": "118.40"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "118.12"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "118.00"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "117.80"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "117.54"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "117.49"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "117.22"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "117.13"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "116.63"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "116.54"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "116.43"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "116.39"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "116.14"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "116.02"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "115.80"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "115.48"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "115.36"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "115.15"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "114.84"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "114.82"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "114.81"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "114.52"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "114.23"
+   },
+   {
+    "product_name": "Chocolade",
+    "unit_price": "113.92"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "113.65"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "113.63"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "113.60"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "113.53"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "113.21"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "112.81"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "112.74"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "112.72"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "112.66"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "112.60"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "112.45"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "112.40"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "112.20"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "112.14"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "112.00"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "111.84"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "111.64"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "111.58"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "111.44"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "110.70"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "110.66"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "110.61"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "110.60"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "110.57"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "110.57"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "110.51"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "110.48"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "109.81"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "109.69"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "109.63"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "109.10"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "109.05"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "108.95"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "108.82"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "108.80"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "108.64"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "108.51"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "108.28"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "108.20"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "107.72"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "107.68"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "107.60"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "107.54"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "107.50"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "107.35"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "107.27"
+   },
+   {
+    "product_name": "P\u00e2t\u00e9 chinois",
+    "unit_price": "107.17"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "106.63"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "106.57"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "106.40"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "106.09"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "106.05"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "105.98"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "105.86"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "105.78"
+   },
+   {
+    "product_name": "Genen Shouyu",
+    "unit_price": "105.72"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "105.67"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "105.65"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "105.30"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "105.14"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "105.01"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "104.88"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "104.67"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "104.37"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "104.18"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "103.92"
+   },
+   {
+    "product_name": "Teatime Chocolate Biscuits",
+    "unit_price": "103.91"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "103.82"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "103.73"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "103.50"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "103.29"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "103.05"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "102.69"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "102.67"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "102.35"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "101.59"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "101.57"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "101.57"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "101.44"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "101.30"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "101.13"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "100.52"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "100.50"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "100.47"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "100.13"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "100.07"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "100.06"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "99.61"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "99.59"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "99.30"
+   },
+   {
+    "product_name": "Chartreuse verte",
+    "unit_price": "99.02"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "98.95"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "98.64"
+   },
+   {
+    "product_name": "Lakkalik\u00f6\u00f6ri",
+    "unit_price": "98.58"
+   },
+   {
+    "product_name": "Chai Toffee",
+    "unit_price": "98.30"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "98.29"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "97.95"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "97.86"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "97.81"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "97.74"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "96.43"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "96.12"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "96.02"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "95.75"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "94.90"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "94.76"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "94.49"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "94.32"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "94.26"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "94.24"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "94.12"
+   },
+   {
+    "product_name": "Uncle Bob's Organic Dried Pears",
+    "unit_price": "94.02"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "93.95"
+   },
+   {
+    "product_name": "Cajun Granola",
+    "unit_price": "93.90"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "93.59"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "93.52"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "93.29"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "93.23"
+   },
+   {
+    "product_name": "Northwoods Cranberry Sauce",
+    "unit_price": "93.09"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "92.95"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "92.94"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "92.93"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "92.58"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "92.36"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "92.12"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "91.85"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "91.85"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "91.84"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "91.80"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "91.75"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "91.53"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "91.42"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "91.02"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "90.98"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "90.66"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "90.45"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "90.42"
+   },
+   {
+    "product_name": "Chang",
+    "unit_price": "90.38"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "89.91"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "89.83"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "89.57"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "89.49"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "89.44"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "89.36"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "89.30"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "89.01"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "87.72"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "87.61"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "87.57"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "87.45"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "87.45"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "87.22"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "87.10"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "86.58"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "86.22"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "86.16"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "85.59"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "85.58"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "85.56"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "85.49"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "85.37"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "85.32"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "85.20"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "85.06"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "84.83"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "84.49"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "84.45"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "84.36"
+   },
+   {
+    "product_name": "Geitost",
+    "unit_price": "84.23"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "84.22"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "84.15"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "84.08"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "84.03"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "83.51"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "83.44"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "83.11"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "83.11"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "82.93"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "82.89"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "82.84"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "82.38"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "82.23"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "82.05"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "82.03"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "81.95"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "81.92"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "81.91"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "81.75"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "81.61"
+   },
+   {
+    "product_name": "Tunnbr\u00f6d",
+    "unit_price": "81.55"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "81.34"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "81.30"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "80.90"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "80.85"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "80.66"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "80.53"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "80.52"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "80.40"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "80.30"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "80.16"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "79.73"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread",
+    "unit_price": "79.71"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "79.67"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "79.58"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "79.41"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "79.37"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "79.36"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "79.23"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "79.09"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "79.07"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "79.06"
+   },
+   {
+    "product_name": "Filipino Granola",
+    "unit_price": "79.04"
+   },
+   {
+    "product_name": "Escargots Ruens",
+    "unit_price": "78.96"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "78.90"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "78.83"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "78.81"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "78.81"
+   },
+   {
+    "product_name": "Rh\u00f6nbr\u00e4u Klosterbier",
+    "unit_price": "78.67"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "78.58"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "78.57"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "78.28"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "78.24"
+   },
+   {
+    "product_name": "Nord-Ost Matjeshering",
+    "unit_price": "78.24"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "78.23"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "78.18"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "77.73"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "77.61"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "77.44"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "77.41"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "77.26"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "77.16"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "77.06"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "76.90"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "76.68"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "76.60"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "76.45"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "76.25"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "76.24"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "76.24"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "76.08"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "75.70"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "75.70"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "75.69"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "75.62"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "75.60"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "75.41"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "75.18"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "75.18"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "75.07"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "74.95"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "74.91"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "74.70"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "74.62"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "74.40"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "74.33"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "74.23"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "74.18"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "74.06"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "73.98"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "73.93"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "73.88"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "73.76"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "73.71"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "73.50"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "73.48"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "73.44"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "73.40"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "73.27"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "73.22"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "73.21"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "73.08"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "73.07"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "73.06"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "72.97"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "72.93"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "72.83"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "72.83"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "72.79"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "72.66"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "72.63"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "72.47"
+   },
+   {
+    "product_name": "Sir Rodney's Scones",
+    "unit_price": "72.41"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "72.38"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "72.23"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "72.17"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "72.12"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "72.12"
+   },
+   {
+    "product_name": "Chef Anton's Cajun Seasoning",
+    "unit_price": "72.08"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "71.95"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "71.92"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "71.91"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "71.91"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "71.87"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "71.86"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "71.74"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "71.59"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "71.37"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "71.13"
+   },
+   {
+    "product_name": "Steeleye Stout",
+    "unit_price": "70.99"
+   },
+   {
+    "product_name": "Camembert Pierrot",
+    "unit_price": "70.65"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "70.59"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "70.52"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "70.44"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "70.40"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "70.36"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "70.22"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "70.05"
+   },
+   {
+    "product_name": "Boston Crab Meat",
+    "unit_price": "69.88"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "69.82"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "69.79"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "69.72"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "69.70"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "69.17"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "69.10"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "68.94"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "68.76"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "68.52"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples",
+    "unit_price": "68.47"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "68.44"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "68.44"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "68.22"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "68.21"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "68.20"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder",
+    "unit_price": "68.12"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "67.77"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "67.46"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "67.45"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "67.32"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "67.28"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "67.10"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "67.01"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "67.00"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "66.94"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "66.61"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "66.35"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "66.30"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "65.79"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "65.67"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "65.53"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "65.31"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "65.28"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "65.28"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "65.06"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "64.98"
+   },
+   {
+    "product_name": "Mishi Kobe Niku",
+    "unit_price": "64.91"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "64.81"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "64.68"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "64.32"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "64.21"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "64.19"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "64.14"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d",
+    "unit_price": "63.91"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme",
+    "unit_price": "63.74"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "63.57"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "63.51"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "63.48"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "63.43"
+   },
+   {
+    "product_name": "Alice Mutton",
+    "unit_price": "63.36"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "63.24"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "63.15"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "63.15"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "63.10"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "63.07"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "63.04"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "63.02"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "62.77"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "61.81"
+   },
+   {
+    "product_name": "Pavlova",
+    "unit_price": "61.66"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "61.64"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "61.62"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "61.62"
+   },
+   {
+    "product_name": "Tofu",
+    "unit_price": "61.04"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "60.88"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "60.71"
+   },
+   {
+    "product_name": "Zaanse Koeken",
+    "unit_price": "60.69"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "60.28"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "59.73"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "59.48"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "59.36"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "58.98"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "58.71"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "58.16"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "58.15"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "57.73"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "57.53"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "57.41"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "57.31"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "57.22"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "56.90"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "56.80"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "56.69"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "56.46"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "56.21"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "56.16"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "55.78"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst",
+    "unit_price": "55.66"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "55.52"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "54.49"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "54.08"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "53.97"
+   },
+   {
+    "product_name": "Sally's Fresh Cheese",
+    "unit_price": "53.60"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "51.65"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "51.61"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "51.17"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "50.87"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "50.62"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "50.43"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "50.30"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "49.68"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "49.43"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "48.91"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "48.74"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "48.72"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "48.37"
+   },
+   {
+    "product_name": "Gula Malacca",
+    "unit_price": "48.13"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "47.55"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "47.23"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "46.93"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "46.14"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "45.95"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "45.45"
+   },
+   {
+    "product_name": "Konbu",
+    "unit_price": "43.50"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "42.36"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "41.75"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "41.45"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "41.05"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "40.81"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "40.74"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "40.67"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "40.64"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "40.53"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "40.03"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "40.03"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "40.00"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "39.90"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "39.83"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "39.77"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "39.54"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "39.46"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "39.27"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "38.99"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "38.85"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.81"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.72"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.70"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "38.44"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "38.42"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "38.40"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.34"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.30"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.23"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "38.06"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "38.05"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "37.94"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "37.89"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "37.86"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "37.71"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "37.27"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "37.14"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "36.93"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "36.87"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "36.85"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "36.69"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "36.52"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "36.37"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "36.16"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "36.14"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "35.82"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "35.79"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "35.74"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "35.68"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "35.67"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "35.61"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "35.55"
+   },
+   {
+    "product_name": "Guaran\u00e1 Fant\u00e1stica",
+    "unit_price": "35.53"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "35.49"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "35.40"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "35.39"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "35.29"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "35.06"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "35.02"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "34.95"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "34.88"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "34.81"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "34.70"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "34.70"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "34.68"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "34.59"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "34.57"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "34.53"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "34.52"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "34.51"
+   },
+   {
+    "product_name": "Longlife Tofu",
+    "unit_price": "34.32"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "34.27"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "34.27"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "34.10"
+   },
+   {
+    "product_name": "Mascarpone Fabioli",
+    "unit_price": "33.91"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "33.71"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "33.62"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "33.40"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "33.07"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "33.07"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "33.05"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "32.95"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "32.93"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "32.69"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "32.63"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "32.59"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "32.44"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "32.31"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "32.15"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "31.92"
+   },
+   {
+    "product_name": "Lakka-Lime Sauce",
+    "unit_price": "31.89"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "31.87"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "31.84"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "31.81"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "31.73"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "31.64"
+   },
+   {
+    "product_name": "Queso Cabrales",
+    "unit_price": "31.15"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "30.56"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "30.39"
+   },
+   {
+    "product_name": "Ikura",
+    "unit_price": "30.10"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "29.59"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "29.10"
+   },
+   {
+    "product_name": "Chai",
+    "unit_price": "28.94"
+   },
+   {
+    "product_name": "Aniseed Syrup",
+    "unit_price": "27.77"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "26.65"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "26.09"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "25.85"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "25.80"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "25.57"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "25.29"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "25.18"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "25.08"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "24.86"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "24.85"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "24.61"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "24.57"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "24.53"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "24.31"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "24.28"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "24.03"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "23.65"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "23.64"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "23.64"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "23.62"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "23.59"
+   },
+   {
+    "product_name": "Tourti\u00e8re",
+    "unit_price": "23.58"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "23.36"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "23.33"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "23.21"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "23.18"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "23.14"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "22.95"
+   },
+   {
+    "product_name": "Chef Anton's Gumbo Mix",
+    "unit_price": "22.94"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "22.85"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "22.57"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "22.39"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "22.27"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "22.07"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "22.01"
+   },
+   {
+    "product_name": "Sir Rodney's Marmalade",
+    "unit_price": "21.98"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "21.94"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "21.80"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "21.76"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "21.76"
+   },
+   {
+    "product_name": "R\u00f6ssle Sauerkraut",
+    "unit_price": "21.71"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "21.34"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "20.99"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "20.60"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "20.21"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "20.06"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "19.90"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "19.90"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "19.89"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "19.69"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "19.67"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "19.67"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "19.64"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "19.40"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "19.38"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "19.22"
+   },
+   {
+    "product_name": "Gorgonzola Telino",
+    "unit_price": "19.18"
+   },
+   {
+    "product_name": "Hokkai Fish",
+    "unit_price": "19.06"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "18.82"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "18.67"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "18.65"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "18.53"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "18.22"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "18.20"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "18.05"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "18.00"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.84"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.51"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.50"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.48"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "17.43"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.18"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "17.08"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "17.02"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "17.00"
+   },
+   {
+    "product_name": "Scottish Longbreads",
+    "unit_price": "16.97"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "16.93"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "16.88"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "16.80"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.37"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.30"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.24"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "16.19"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.17"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "16.12"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.10"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "16.08"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "16.00"
+   },
+   {
+    "product_name": "Sasquatch Ale",
+    "unit_price": "15.98"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "15.05"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "15.03"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "14.79"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "14.69"
+   },
+   {
+    "product_name": "Queso Manchego La Pastora",
+    "unit_price": "14.32"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "13.76"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "13.58"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "13.55"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "13.47"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "13.25"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "13.23"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "12.89"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "12.88"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "12.82"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "12.77"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "12.71"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "12.58"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "12.55"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "12.52"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "12.44"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "12.31"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "12.26"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "12.21"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "12.17"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "12.12"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "11.94"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "11.93"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni",
+    "unit_price": "11.91"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "11.87"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "11.79"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "11.75"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "11.62"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "11.60"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "11.58"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "11.56"
+   },
+   {
+    "product_name": "Gravad lax",
+    "unit_price": "11.50"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "11.49"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "11.36"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "11.27"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "11.27"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "11.26"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "11.18"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "11.14"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "10.99"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "10.78"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "10.75"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.70"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.52"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.52"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "10.49"
+   },
+   {
+    "product_name": "Perth Pasties",
+    "unit_price": "10.40"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.35"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.29"
+   },
+   {
+    "product_name": "Inlagd Sill",
+    "unit_price": "10.27"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "10.16"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "10.11"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "10.08"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "9.99"
+   },
+   {
+    "product_name": "Otto's Lager",
+    "unit_price": "9.77"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "8.22"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "8.08"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "8.05"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "8.05"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "8.01"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.96"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.91"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.74"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.67"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.61"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.46"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.25"
+   },
+   {
+    "product_name": "Gorgonzola Crackers",
+    "unit_price": "7.15"
+   }
+  ]
+ },
+ "Which country has the most suppliers?": {
+  "sql": "SELECT country, count(*) AS suppliers FROM suppliers GROUP BY country ORDER BY suppliers DESC LIMIT 1;",
+  "rows": [
+   {
+    "country": "USA",
+    "suppliers": 3
+   },
+   {
+    "country": "UK",
+    "suppliers": 2
+   },
+   {
+    "country": "Japan",
+    "suppliers": 2
+   },
+   {
+    "country": "Australia",
+    "suppliers": 1
+   },
+   {
+    "country": "Spain",
+    "suppliers": 1
+   },
+   {
+    "country": "Italy",
+    "suppliers": 1
+   },
+   {
+    "country": "Denmark",
+    "suppliers": 1
+   },
+   {
+    "country": "Norway",
+    "suppliers": 1
+   },
+   {
+    "country": "Sweden",
+    "suppliers": 1
+   },
+   {
+    "country": "Brazil",
+    "suppliers": 1
+   },
+   {
+    "country": "Finland",
+    "suppliers": 1
+   },
+   {
+    "country": "Netherlands",
+    "suppliers": 1
+   }
+  ]
+ },
+ "Which employee hired last?": {
+  "sql": "SELECT first_name || ' ' || last_name AS employee FROM employees WHERE hire_date = (SELECT MAX(hire_date) FROM employees);",
+  "rows": [
+   {
+    "employee": "Steven Buchanan"
+   }
+  ]
+ },
+ "Which customer company names start with 'Alfreds'?": {
+  "sql": "SELECT company_name FROM customers WHERE company_name LIKE 'Alfreds%';",
+  "rows": [
+   {
+    "company_name": "Alfreds Futterkiste"
+   }
+  ]
+ },
+ "How many distinct cities do our customers live in?": {
+  "sql": "SELECT count(DISTINCT city) AS cities FROM customers;",
+  "rows": [
+   {
+    "cities": 4
+   }
+  ]
+ },
+ "Which products are currently out of stock?": {
+  "sql": "SELECT product_name FROM products WHERE units_in_stock = 0 AND discontinued = 0 ORDER BY product_name;",
+  "rows": [
+   {
+    "product_name": "Cajun Granola"
+   },
+   {
+    "product_name": "Camembert Pierrot"
+   },
+   {
+    "product_name": "Chartreuse verte"
+   },
+   {
+    "product_name": "Filipino Granola"
+   },
+   {
+    "product_name": "Grandma's Boysenberry Spread"
+   },
+   {
+    "product_name": "Gravad lax"
+   },
+   {
+    "product_name": "Gustaf's Kn\u00e4ckebr\u00f6d"
+   },
+   {
+    "product_name": "Ikura"
+   },
+   {
+    "product_name": "Jack's New England Clam Chowder"
+   },
+   {
+    "product_name": "Manjimup Dried_Apples"
+   },
+   {
+    "product_name": "Mozzarella di Giovanni"
+   },
+   {
+    "product_name": "NuNuCa Nu\u00df-Nougat-Creme"
+   },
+   {
+    "product_name": "Pavlova"
+   },
+   {
+    "product_name": "Perth Pasties"
+   },
+   {
+    "product_name": "Steeleye Stout"
+   },
+   {
+    "product_name": "Th\u00fcringer Rostbratwurst"
+   },
+   {
+    "product_name": "Zaanse Koeken"
+   }
+  ]
+ },
+ "How many employees have someone they report to?": {
+  "sql": "SELECT count(*) AS employees FROM employees WHERE reports_to IS NOT NULL;",
+  "rows": [
+   {
+    "employees": 7
+   }
+  ]
+ },
+ "Which customer countries placed orders shipped to Brazil?": {
+  "sql": "SELECT DISTINCT c.country FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE o.ship_country = 'Brazil' ORDER BY c.country;",
+  "rows": [
+   {
+    "country": "Germany"
+   },
+   {
+    "country": "Italy"
+   },
+   {
+    "country": "Japan"
+   },
+   {
+    "country": "USA"
+   }
+  ]
+ }
+}
