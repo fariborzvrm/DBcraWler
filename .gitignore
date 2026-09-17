@@ -8,3 +8,7 @@ __pycache__/
 dist/
 build/
 .schema_embeddings_cache.json
+docs/
+AGENTS.md
+plan.md
+structure.md

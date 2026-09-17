@@ -30,6 +30,12 @@ Phases 1-4 files plus:
 - Live runner: `uv run python -m dbcrawler.evaluation` (exact match,
   execution accuracy, ambiguous/unanswerable detection, guardrail rate,
   failure details in summary).
+- README.md created at repo root (public-GitHub/resume oriented):
+  badges, "why different" table, mermaid + ASCII pipeline diagram,
+  key engineering decisions, architecture tree, quick start, API table,
+  testing, roadmap, security principles. Only in-repo facts; no invented
+  evaluation numbers. docs/, AGENTS.md, plan.md, structure.md added to
+  .gitignore (none were ever committed, no git rm --cached needed).
 
 ## Current Problem
 
