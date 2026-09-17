@@ -1,4 +1,4 @@
-# **DBcrawler**
+# **DBcraWler**
 
 > **Natural-language questions → validated, guard-railed, read-only SQL over PostgreSQL.**
 
