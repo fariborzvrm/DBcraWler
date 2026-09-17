@@ -1,5 +1,19 @@
 # Architectural Decisions
 
+## ADR-012 — Multi-Signal Confidence Scoring
+
+Decision:
+Confidence is a weighted blend of: LLM self-report (0.20),
+back-translation alignment (0.35), sanity pass rate (0.25),
+schema coverage (0.10), multi-query agreement (0.10). Missing
+sanity/multiquery signals are omitted and weights renormalized;
+unavailable alignment uses a neutral 0.5. A contradicting second
+query zeroes the self-report weight.
+
+Reason:
+AGENTS.md forbids claiming confidence without validation signals;
+LLM self-reports are overconfident, so local signals dominate.
+
 ## ADR-011 — SQL Validation Engine
 
 Decision:

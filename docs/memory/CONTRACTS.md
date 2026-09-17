@@ -139,6 +139,71 @@ hard-capped at `settings.guardrail_max_limit_rows`.
 }
 ```
 
+## IntentVerification
+
+Phase 3 output of `dbcrawler.validation.backtranslator.verify_intent`.
+
+```json
+{
+  "back_translated_question": "string",
+  "alignment_score": 0.0,
+  "explanation": "string"
+}
+```
+
+## SanityResult
+
+Phase 3 output of `dbcrawler.validation.sanity.check_result_sanity`
+(deterministic, no LLM).
+
+```json
+{
+  "findings": [{ "check": "string", "passed": true, "message": "string" }]
+}
+```
+
+`pass_rate` = fraction of passed findings (1.0 when no findings).
+Check ids: `has_rows`, `null_heavy`, `magnitude`.
+
+## MultiQueryResult
+
+Phase 3 output of `dbcrawler.validation.multiquery.compare_results`.
+
+```json
+{
+  "ran": true,
+  "agree": false,
+  "first_sql": "string",
+  "second_sql": "string",
+  "detail": "string"
+}
+```
+
+## ConfidenceBreakdown
+
+Phase 3 output of `dbcrawler.confidence.compute_confidence`.
+Final score in [0,1]; `llm_self_report` is only one weighted signal.
+Neutral alignment (0.5) is used if back-translation is unavailable;
+multiquery weight is dropped (renormalized) when it did not run.
+
+```json
+{
+  "final": 0.0,
+  "llm_self_report": 0.0,
+  "intent_alignment": 0.0,
+  "sanity_pass_rate": 0.0,
+  "schema_coverage": 0.0,
+  "multiquery_agreement": true
+}
+```
+
+## VerifiedQuery
+
+Phase 3 orchestration output (`dbcrawler.validation.runner.run_validation`):
+bundles `query_result`, `sanity`, `intent`, `multiquery`, `confidence`,
+`warnings`. Multi-query path executes the alternative SQL through the
+same `check_guardrails` → `execute_sql` chain.
+
 ## Reserve (future phases — do not break)
 
 API POST /v1/query (Phase 4): input {question}, output {sql, results, confidence, warnings}.

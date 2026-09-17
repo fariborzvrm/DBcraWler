@@ -10,13 +10,14 @@ import sys
 
 from dbcrawler.config.settings import get_settings
 from dbcrawler.generated_sql import GeneratedSQL
-from dbcrawler.guardrails import ExecutionBlocked, check_guardrails, execute_sql
+from dbcrawler.guardrails import check_guardrails
 from dbcrawler.llm.ambiguity import check_ambiguity
 from dbcrawler.llm.client import OpenRouterClient
 from dbcrawler.pipeline.prompt_builder import SYSTEM_PROMPT, build_prompt
 from dbcrawler.pipeline.schema_filter import filter_tables, subselect_schema
 from dbcrawler.schema.extractor import extract_schema_url
 from dbcrawler.schema.representation import render_schema_text
+from dbcrawler.validation.runner import run_validation
 
 SQL_GEN_SCHEMA = {
     "type": "object",
@@ -92,21 +93,63 @@ def main() -> None:
     if not execute_mode:
         return
 
-    print("[exec] Read-only sandboxed execution")
-    try:
-        query_result = execute_sql(
-            guardrail.enforced_sql, settings, validation=guardrail.model_dump()
-        )
-    except (ExecutionBlocked, ValueError, OSError) as exc:
-        print(f"      execution blocked/failed: {exc}")
-        return
-    print(f"      plan: {query_result.explain_plan}")
-    print(
-        f"      rows: {query_result.row_count}{' (truncated)' if query_result.truncated else ''}"
-        f"  time: {query_result.execution_time_ms}ms"
+    print("[exec] Guarded read-only execution + validation")
+    verified = run_validation(
+        client,
+        settings,
+        question,
+        generated,
+        guardrail.enforced_sql,
+        schema,
     )
-    for row in query_result.rows[:10]:
+    result = verified.query_result
+    if result is None:
+        print(f"      execution blocked: {verified.warnings}")
+        return
+    print(f"      plan: {result.explain_plan}")
+    print(
+        f"      rows: {result.row_count}{' (truncated)' if result.truncated else ''}"
+        f"  time: {result.execution_time_ms}ms"
+    )
+    for row in result.rows[:10]:
         print(f"        {row}")
+
+    if verified.intent:
+        print("\n[verify] Intent check")
+        print(f"      SQL answers: {verified.intent.back_translated_question}")
+        print(f"      alignment: {verified.intent.alignment_score}")
+        if verified.intent.explanation:
+            print(f"      {verified.intent.explanation}")
+
+    failed = [f.message for f in verified.sanity.findings if not f.passed]
+    if failed:
+        print("\n[sanity] Flags:")
+        for message in failed:
+            print(f"      - {message}")
+
+    if verified.multiquery:
+        print("\n[multi] Second SQL:")
+        print(f"      {verified.multiquery.second_sql}")
+        print(
+            f"      agreement: {verified.multiquery.agree} ({verified.multiquery.detail})"
+        )
+
+    if verified.confidence:
+        breakdown = verified.confidence
+        print("\n[confidence]")
+        print(f"      final: {breakdown.final}")
+        for field in (
+            "llm_self_report",
+            "intent_alignment",
+            "sanity_pass_rate",
+            "schema_coverage",
+            "multiquery_agreement",
+        ):
+            value = getattr(breakdown, field)
+            if value is not None:
+                print(f"      {field}: {value}")
+    for warning in verified.warnings:
+        print(f"      warning: {warning}")
 
 
 if __name__ == "__main__":
